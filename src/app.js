@@ -7,6 +7,13 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 // Import at the top
 import authRoutes from './routes/authRoutes.js';
+import { apiLimiter } from './middlewares/rateLimiter.js'; // Import rate limiter
+import { errorHandler } from './middlewares/errorHandler.js'; // Import error handler
+
+// Routes
+import authRoutes from './routes/authRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+
 
 // Import other routes as needed
 
@@ -24,9 +31,16 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 3. Rate Limiter (BEFORE routes)
+app.use('/api/', apiLimiter); // Apply to all /api/* routes
+
 
 // Add after middleware
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use(errorHandler);
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI)
