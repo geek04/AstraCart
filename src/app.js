@@ -11,10 +11,27 @@ import { apiLimiter } from './middlewares/rateLimiter.js'; // Import rate limite
 import { errorHandler } from './middlewares/errorHandler.js'; // Import error handler
 
 // Routes
-import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 
+import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'AstraCart API',
+      version: '1.0.0'
+    }
+  },
+  apis: ['./src/routes/*.js']
+};
+
+const specs = swaggerJSDoc(options);
+
+export default (app) => {
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
+};
 // Import other routes as needed
 
 
