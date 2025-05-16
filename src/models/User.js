@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
     city: String,
     country: String
   }],
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  profilepicture:{type: String},
+  resetToken: { type: String },
+  resetTokenExpires: { type: Date }
+
 });
 
 export default mongoose.model('User', userSchema);

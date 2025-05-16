@@ -1,3 +1,5 @@
+
+import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
@@ -6,4 +8,9 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, default: 0 },
   images: [String], // Cloudinary URLs
   seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-});
+}, { timestamps: true });
+export default mongoose.model('Product', productSchema);
+
+
+
+

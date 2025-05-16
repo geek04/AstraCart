@@ -1,5 +1,5 @@
 // In paymentController.js
-export const createPaymentIntent = async (req, res) => {
+/* export const createPaymentIntent = async (req, res) => {
   const { amount } = req.body;
 
   const paymentIntent = await stripe.paymentIntents.create({
@@ -10,3 +10,4 @@ export const createPaymentIntent = async (req, res) => {
 
   res.json({ clientSecret: paymentIntent.client_secret });
 };
+*/
